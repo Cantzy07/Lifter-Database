@@ -1,0 +1,10 @@
+Workflow
+Height/weight/picture/video uploaded
+movenet rigs up joints on the body and vectorizes distances between the joints
+CNN to identify the type of lift
+connect to database and use KNN to find most similar powerlifter to you for that particular lift
+Access a resources part of the database for that particular lifter with links to websites for videos and programs for that particular lifter.
+
+Plan:
+Classes: database class: connecting/querying, rig class: use movenet and store vectorized points/height/weight, main: using database and rig classes and KNN to identify lifter, and train CNN model
+Database: Top 100 IPF Lifters
