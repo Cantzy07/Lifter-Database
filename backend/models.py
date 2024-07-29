@@ -6,7 +6,7 @@ class Lifter(db.Model):
     weight = db.Column(db.Float, unique=False, nullable=False)
     
     # Relationship with PositionalPoint
-    positional_points = db.relationship('PositionalPoints', backref='lifter', lazy=True)
+    positional_points = db.relationship('PositionalPoints', backref='lifter', cascade="all, delete-orphan")
 
     def to_json(self):
         return {

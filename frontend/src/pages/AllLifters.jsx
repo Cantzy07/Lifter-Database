@@ -3,7 +3,6 @@ import Navbar from '../components/Navbar';
 import LifterList from '../components/LifterList'
 import '../App.css';
 import LifterForm from '../components/LifterForm';
-import { useNavigate } from 'react-router-dom';
 
 function AllLifters() {
     const [lifters, setLifters] = useState([]);

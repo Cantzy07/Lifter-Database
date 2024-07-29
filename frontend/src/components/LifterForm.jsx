@@ -31,6 +31,22 @@ const LifterForm = ({ existingLifter = {}, updateCallback}) => {
         }
     }
 
+    const removeMetrics = async (id) => {
+        try {
+            const options = {
+                method: "DELETE"
+            }
+            const response = await fetch(`http://127.0.0.1:5000/delete_metrics/${id}`, options)
+            if (response.status === 200) {
+                updateCallback()
+            } else {
+                console.error("Failed to delete")
+            }
+        } catch (error) {
+            alert(error)
+        }
+    }
+
     return (
         <form onSubmit={onSubmit}>
             <div>
@@ -58,6 +74,7 @@ const LifterForm = ({ existingLifter = {}, updateCallback}) => {
                     id="positionalPoints" 
                     onChange={(e) => setPositionalPoints(e.target.files[0])} 
                 />
+                <button type="button" onClick={() => removeMetrics(existingLifter.id)}>Remove All Metrics</button>
             </div>
             <button type="submit">{updating ? "Update Lifter" : "Create New Lifter"}</button>
         </form>

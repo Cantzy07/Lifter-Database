@@ -46,7 +46,7 @@ def create_lifter():
         db.session.add(new_lifter)
         db.session.commit()
     except Exception as e:
-        return jsonify({"message": str(e)}), 400
+        return jsonify({"message": "Must input a unique name, weight, and a picture"}), 400
 
     # create metrics from picture
     point = PositionalPointsFactory.create_positional_point(new_lifter.id, frame)
@@ -83,9 +83,6 @@ def update_lifter(user_id):
             # Read the image file directly from memory
             img = Image.open(BytesIO(file.read()))
             img = np.array(img)
-
-            # Clear existing positional points
-            PositionalPoints.query.filter_by(lifter_id=lifter.id).delete()
             
             # Create and add new positional points
             point = PositionalPointsFactory.create_positional_point(user_id, img)
@@ -108,6 +105,22 @@ def delete_lifter(user_id):
 
     # delete lifter and commit changes
     db.session.delete(lifter)
+    db.session.commit()
+
+    # return successful deletion message
+    return jsonify({"message": "Lifter deleted!"}), 200
+
+@app.route("/delete_metrics/<int:user_id>", methods=["DELETE"])
+def delete_metrics(user_id):
+    # get the user from the db based on user id
+    lifter = Lifter.query.get(user_id)
+
+    # if lifter isn't found then return error
+    if not lifter:
+        return jsonify({"message": "Lifter not found"}), 404
+
+    # Clear existing positional points
+    PositionalPoints.query.filter_by(lifter_id=lifter.id).delete()
     db.session.commit()
 
     # return successful deletion message

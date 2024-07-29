@@ -35,7 +35,7 @@ class PositionalPointsFactory:
         distancesString = ','.join(map(str, distances))
 
         # Create a new PositionalPoints instance
-        new_positional_point = PositionalPoints(points=keypointsString, distances=distancesString, lifter_id=lifter_id)
+        new_positional_point = PositionalPoints(points=(keypointsString + ";"), distances=(distancesString + ";"), lifter_id=lifter_id)
         
         return new_positional_point
     
