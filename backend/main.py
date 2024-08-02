@@ -6,6 +6,7 @@ from positionalPointsFactory import PositionalPointsFactory
 from io import BytesIO
 import numpy as np
 from PIL import Image
+from KNNTransform import KNNTransform
 
 
 @app.route("/lifters", methods=["GET"])
@@ -15,6 +16,34 @@ def get_lifters():
     json_lifters = list(map(lambda x: x.to_json(), lifters))
     return jsonify({"lifters": json_lifters})
 
+@app.route("/find_matching", methods=["POST"])
+def find_matching():
+    if 'file' not in request.files:
+        return "no file part", 400
+    
+    file = request.files['file']
+    weight = request.form['weight']
+
+    if file.filename == '':
+        return "No selected file", 400
+    
+    frame = Image.open(BytesIO(file.read()))
+    frame = np.array(frame)
+
+    PositionalPointsFactory.getMetrics(frame, weight)
+
+    data = []
+    # get all lifter data
+    allLifters = Lifter.query.all()
+    # get all metrics data from all lifters and put into a list
+    for lifter in allLifters:
+        tempArr = KNNTransform.transformData(lifter)
+        for metrics in tempArr:
+            data.append(metrics)
+
+    return data
+# to do
+# normalize data, KNN with metrics, identify person by finding which metric set in data matches indice in allLifters, then return that lifter.name
 
 @app.route("/create_lifter", methods=["POST"])
 def create_lifter():

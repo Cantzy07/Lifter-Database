@@ -68,7 +68,7 @@ const LifterForm = ({ existingLifter = {}, updateCallback}) => {
                 />
             </div>
             <div>
-                <label htmlFor="positionalPoints">Picture:</label>
+                <label htmlFor="positionalPoints">Picture: </label>
                 <input 
                     type="file" 
                     id="positionalPoints" 
