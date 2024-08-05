@@ -42,7 +42,7 @@ EDGES = {
 class MoveNetRig:
     # Get x,y coords of each keypoint on the body and store in points
     def get_keypoints(frame, keypoints, confidence_threshold):
-        points = [0] * 17  # initial points before set to a list holding x,y coords in each index
+        points = [[0, 0] for i in range(17)] # initial points before set to a list holding x,y coords in each index
         y, x, c = frame.shape
         shaped = np.squeeze(np.multiply(keypoints, [y, x, 1]))
 

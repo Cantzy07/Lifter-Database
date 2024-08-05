@@ -30,7 +30,7 @@ def find_matching():
     frame = Image.open(BytesIO(file.read()))
     frame = np.array(frame)
 
-    PositionalPointsFactory.getMetrics(frame, weight)
+    lifter_metrics = PositionalPointsFactory.getMetrics(frame, weight)
 
     data = []
     # get all lifter data
@@ -41,9 +41,9 @@ def find_matching():
         for metrics in tempArr:
             data.append(metrics)
 
-    return data
-# to do
-# normalize data, KNN with metrics, identify person by finding which metric set in data matches indice in allLifters, then return that lifter.name
+    most_similar = KNNTransform.findKNN(lifter_metrics, data)
+
+    return jsonify(allLifters[data.index(most_similar)].name)
 
 @app.route("/create_lifter", methods=["POST"])
 def create_lifter():

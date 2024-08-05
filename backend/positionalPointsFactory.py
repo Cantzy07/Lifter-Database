@@ -44,6 +44,8 @@ class PositionalPointsFactory:
         result_string = ' '.join(list_strings)
         return result_string
     
+
+    # the same as get positional_point except it doesn't add it to the database
     def getMetrics(frame, weight):
         confidenceThreshold = 0.6
 
@@ -70,6 +72,8 @@ class PositionalPointsFactory:
         keypointsString = PositionalPointsFactory.stringifyPoints(keypoints)
         distancesString = ' '.join(map(str, distances))
 
-        vectorString = keypointsString + distancesString + str(weight)
-        
-        return vectorString.split()
+        vectorString = keypointsString + " " + distancesString + " " + str(weight)
+        temp_array = vectorString.split()
+        string_to_int_array = [float(value) for value in temp_array]
+
+        return string_to_int_array
