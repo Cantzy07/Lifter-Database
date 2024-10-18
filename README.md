@@ -2,8 +2,8 @@
 
 ## Web application that uses MoveNet AI model to collect joint and limb metrics from photos inputted. Stores those as database objects (Lifter, Positional Points, Resources). Uses KNN to compare inserted images as vectors to all the database Lifter objects and outputs the most similar lifter. Uses HTTP methods to insert, update, and delete data. Uses a SQLAlchemy database, React frontend and Flask backend framework.
 
-Movenet: https://www.tensorflow.org/hub/tutorials/movenet
-Help with MoveNet implementation: https://youtu.be/SSW9LzOJSus?si=FHFmgB-
+* Movenet: https://www.tensorflow.org/hub/tutorials/movenet
+* Help with MoveNet implementation: https://youtu.be/SSW9LzOJSus?si=FHFmgB-
 
 # Routed Pages
 1. AllLifters: List of all lifter metrics in the database with Name, weight, and metrics
